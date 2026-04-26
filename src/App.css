@@ -1,0 +1,14 @@
+.wrapper {
+  min-height: 100vh;
+
+  background: linear-gradient(145deg, black, rgb(41, 41, 241), black);
+}
+.container {
+  color: white;
+}
+
+.table > :not(caption) > * > * {
+  padding: 10px;
+  color: white;
+  font-weight: 400;
+}
