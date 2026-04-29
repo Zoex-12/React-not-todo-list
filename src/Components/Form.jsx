@@ -1,8 +1,34 @@
-export const Form = () => {
+export const Form = ({ addTask }) => {
+  const randomIdGenerator = (length = 6) => {
+    const str = "abcdefghijklmnopqrstuvwxyzASHJFVBNMXCERTYUIOPQ234569871";
+    let id = "";
+    for (let i = 0; i < length; i++) {
+      let random = Math.floor(Math.random() * str.length);
+      id += str[random];
+    }
+    return id;
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    const newForm = new FormData(e.target);
+    const task = newForm.get("task");
+    const hour = +newForm.get("hours");
+
+    const taskObj = {
+      task,
+      hour,
+      id: randomIdGenerator(),
+      type: "entry",
+    };
+    addTask(taskObj);
+  };
+
   return (
     <>
       <form
         action=""
+        onSubmit={handleOnSubmit}
         className="grid grid-cols-1 md:grid-cols-7 gap-4 w-[80%] shadow-lg p-7 mt-2 bg-transparent border-2 rounded-lg "
       >
         <div className="md:col-span-4">

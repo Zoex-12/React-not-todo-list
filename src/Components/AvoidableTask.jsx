@@ -1,6 +1,6 @@
 import { SavedHour } from "./SavedHour";
 
-export const AvoidableTask = () => {
+export const AvoidableTask = ({ avoidableTask }) => {
   return (
     <div className="w-full">
       <h2 className="mt-8 font-semibold text-2xl text-center mb-2">
@@ -35,15 +35,29 @@ export const AvoidableTask = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-gray-400">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-heading whitespace-nowrap bg-neutral-secondary-soft"
-              ></th>
-              <td className="px-6 py-4"></td>
-              <td className="px-6 py-4 "></td>
-              <td className="px-6 py-4 bg-neutral-secondary-soft"></td>
-            </tr>
+            {avoidableTask.map((item, i) => {
+              return (
+                <tr key={i} className="border-b border-gray-400">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-heading whitespace-nowrap bg-neutral-secondary-soft"
+                  >
+                    {i + 1}
+                  </th>
+                  <td className="px-6 py-4">{item.task}</td>
+                  <td className="px-6 py-4 ">{item.hour}</td>
+                  <td className="px-6 py-4 bg-neutral-secondary-soft ">
+                    {" "}
+                    <button className="bg-red-500 pt-1 pb-1 pr-3 pl-3 rounded-md cursor-pointer mr-2">
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
+                    <button className="bg-blue-500 pt-1 pb-1 pr-3 pl-3 rounded-md cursor-pointer">
+                      <i className="fa-solid fa-arrow-left"></i>
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

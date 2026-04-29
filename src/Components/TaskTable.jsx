@@ -1,4 +1,4 @@
-export const TaskTable = () => {
+export const TaskTable = ({ entryList, handleOnSwitch, handleOnDelete }) => {
   return (
     <div className="w-full">
       <h2 className="mt-8 font-semibold text-2xl text-center mb-2">
@@ -33,15 +33,37 @@ export const TaskTable = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-gray-400">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-heading whitespace-nowrap bg-neutral-secondary-soft"
-              ></th>
-              <td className="px-6 py-4"></td>
-              <td className="px-6 py-4 "></td>
-              <td className="px-6 py-4 bg-neutral-secondary-soft"></td>
-            </tr>
+            {entryList.map((item, i) => {
+              return (
+                <tr key={i} className="border-b border-gray-400">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-heading whitespace-nowrap bg-neutral-secondary-soft"
+                  >
+                    {i + 1}
+                  </th>
+                  <td className="px-6 py-4">{item.task}</td>
+                  <td className="px-6 py-4 ">{item.hour}</td>
+                  <td className="px-6 py-4 bg-neutral-secondary-soft  ">
+                    {" "}
+                    <button
+                      className="bg-red-500 pt-1 pb-1 pr-3 pl-3 rounded-md cursor-pointer mr-2"
+                      onClick={() => handleOnDelete(item.id)}
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
+                    <button
+                      className="bg-green-500 pt-1 pb-1 pr-3 pl-3 rounded-md cursor-pointer"
+                      onClick={() => {
+                        handleOnSwitch(item.id, "bad");
+                      }}
+                    >
+                      <i className="fa-solid fa-arrow-right"></i>
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
