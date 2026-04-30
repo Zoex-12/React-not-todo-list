@@ -1,6 +1,11 @@
 import { SavedHour } from "./SavedHour";
 
-export const AvoidableTask = ({ avoidableTask }) => {
+export const AvoidableTask = ({
+  avoidableTask,
+  switchBack,
+  handleOnDelete,
+  savedHour,
+}) => {
   return (
     <div className="w-full">
       <h2 className="mt-8 font-semibold text-2xl text-center mb-2">
@@ -48,10 +53,16 @@ export const AvoidableTask = ({ avoidableTask }) => {
                   <td className="px-6 py-4 ">{item.hour}</td>
                   <td className="px-6 py-4 bg-neutral-secondary-soft ">
                     {" "}
-                    <button className="bg-red-500 pt-1 pb-1 pr-3 pl-3 rounded-md cursor-pointer mr-2">
+                    <button
+                      className="bg-red-500 pt-1 pb-1 pr-3 pl-3 rounded-md cursor-pointer mr-2"
+                      onClick={() => handleOnDelete(item.id)}
+                    >
                       <i className="fa-solid fa-trash"></i>
                     </button>
-                    <button className="bg-blue-500 pt-1 pb-1 pr-3 pl-3 rounded-md cursor-pointer">
+                    <button
+                      className="bg-blue-500 pt-1 pb-1 pr-3 pl-3 rounded-md cursor-pointer"
+                      onClick={() => switchBack(item.id, "entry")}
+                    >
                       <i className="fa-solid fa-arrow-left"></i>
                     </button>
                   </td>
@@ -61,7 +72,7 @@ export const AvoidableTask = ({ avoidableTask }) => {
           </tbody>
         </table>
       </div>
-      <SavedHour />
+      <SavedHour savedHour={savedHour} />
     </div>
   );
 };

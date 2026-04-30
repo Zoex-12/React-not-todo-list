@@ -26,9 +26,29 @@ const App = () => {
     );
   };
 
+  const switchBack = (id, type) => {
+    setTaskList(
+      taskList.map((item) => {
+        if (item.id === id) {
+          return { ...item, type: type };
+        }
+        return item;
+      }),
+    );
+  };
+  const Totalhr = useMemo(() => {
+    return taskList.reduce((acc, item) => {
+      return acc + item.hour;
+    }, 0);
+  }, [taskList]);
+
   const avoidableTask = useMemo(() => {
     return taskList.filter((item) => item.type === "bad");
   }, [taskList]);
+
+  const savedHour = useMemo(() => {
+    return avoidableTask.reduce((acc, item) => acc + item.hour, 0);
+  }, [avoidableTask]);
 
   const handleOnDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this ?")) {
@@ -41,16 +61,21 @@ const App = () => {
         <h1 className="text-center font-semibold text-3xl mb-3">
           NOT TODO LIST
         </h1>
-        <Form addTask={addTask} />
+        <Form addTask={addTask} Totalhr={Totalhr} />
         <div className="flex gap-3 flex-col md:flex-row md:gap-5 w-[80%] justify-center">
           <TaskTable
             entryList={entryList}
             handleOnSwitch={handleOnSwitch}
             handleOnDelete={handleOnDelete}
           />
-          <AvoidableTask avoidableTask={avoidableTask} />
+          <AvoidableTask
+            avoidableTask={avoidableTask}
+            switchBack={switchBack}
+            handleOnDelete={handleOnDelete}
+            savedHour={savedHour}
+          />
         </div>{" "}
-        <Totalhours />
+        <Totalhours Totalhr={Totalhr} />
       </div>
     </div>
   );

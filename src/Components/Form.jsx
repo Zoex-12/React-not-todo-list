@@ -1,4 +1,4 @@
-export const Form = ({ addTask }) => {
+export const Form = ({ addTask, Totalhr }) => {
   const randomIdGenerator = (length = 6) => {
     const str = "abcdefghijklmnopqrstuvwxyzASHJFVBNMXCERTYUIOPQ234569871";
     let id = "";
@@ -22,6 +22,13 @@ export const Form = ({ addTask }) => {
       type: "entry",
     };
     addTask(taskObj);
+
+    const TotalhrPerWeek = 24 * 7;
+
+    const existinghr = Totalhr;
+    if (existinghr + hour > TotalhrPerWeek) {
+      return alert("sorry your limit has been exceeded");
+    }
   };
 
   return (
